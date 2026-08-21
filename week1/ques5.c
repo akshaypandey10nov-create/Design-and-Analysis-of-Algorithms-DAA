@@ -1,37 +1,52 @@
 #include <stdio.h>
 
 int main() {
-    int n, bit;
-    int ones = 0, zeros = 0;
-    int consecutive = 0, maxConsecutive = 0;
+    int a[10][10], b[10][10], result[10][10];
+    int r1, c1, r2, c2;
+    int i, j, k;
 
-    printf("Enter a number: ");
-    scanf("%d", &n);
+    printf("Enter rows and columns of first matrix: ");
+    scanf("%d %d", &r1, &c1);
 
-    if (n == 0) {
-        zeros = 1;
+    printf("Enter rows and columns of second matrix: ");
+    scanf("%d %d", &r2, &c2);
+
+    if (c1 != r2) {
+        printf("Matrix multiplication is not possible.\n");
+        return 0;
     }
 
-    while (n > 0) {
-        bit = n % 2;
-
-        if (bit == 1) {
-            ones++;
-            consecutive++;
-
-            if (consecutive > maxConsecutive)
-                maxConsecutive = consecutive;
-        } else {
-            zeros++;
-            consecutive = 0;
+    printf("Enter elements of first matrix:\n");
+    for (i = 0; i < r1; i++) {
+        for (j = 0; j < c1; j++) {
+            scanf("%d", &a[i][j]);
         }
-
-        n = n / 2;
     }
 
-    printf("Number of 1s = %d\n", ones);
-    printf("Number of 0s = %d\n", zeros);
-    printf("Maximum consecutive 1s = %d\n", maxConsecutive);
+    printf("Enter elements of second matrix:\n");
+    for (i = 0; i < r2; i++) {
+        for (j = 0; j < c2; j++) {
+            scanf("%d", &b[i][j]);
+        }
+    }
+
+    for (i = 0; i < r1; i++) {
+        for (j = 0; j < c2; j++) {
+            result[i][j] = 0;
+
+            for (k = 0; k < c1; k++) {
+                result[i][j] += a[i][k] * b[k][j];
+            }
+        }
+    }
+
+    printf("Resultant matrix:\n");
+    for (i = 0; i < r1; i++) {
+        for (j = 0; j < c2; j++) {
+            printf("%d ", result[i][j]);
+        }
+        printf("\n");
+    }
 
     return 0;
 }
