@@ -1,0 +1,23 @@
+#include <stdio.h>
+
+int countPartitions(int n, int max) {
+    if (n == 0)
+        return 1;
+
+    if (n < 0 || max == 0)
+        return 0;
+
+    return countPartitions(n, max - 1)
+         + countPartitions(n - max, max);
+}
+
+int main() {
+    int n;
+    printf("Enter a number: ");
+    scanf("%d", &n);
+
+    printf("Number of partitions = %d\n",
+           countPartitions(n, n));
+
+    return 0;
+}
